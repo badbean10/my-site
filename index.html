@@ -259,15 +259,15 @@
   <!-- Scene 2: birthday + cake -->
   <section class="scene" id="s2">
     <div id="question">
-      <h2>First things first.<br>Do you know what day it is?</h2>
+      <h2>Quick question.<br>Is it your birthday yet?</h2>
       <p>Think carefully…</p>
       <div class="btn-row">
-        <button id="yes">Yes! 🎉</button>
-        <button class="alt" id="no">Uhh… Tuesday?</button>
+        <button id="yes">Not yet! 🗓️</button>
+        <button class="alt" id="no">Uhh… is it?</button>
       </div>
     </div>
     <div id="birthday-reveal">
-      <h2 id="bday-title">It's your BIRTHDAY!</h2>
+      <h2 id="bday-title">Not yet, but I couldn't wait!</h2>
       <div class="cake" id="cake" role="button" aria-label="Blow out the candles">
         <div class="candles">
           <div class="candle"><div class="flame"></div><div class="smoke"></div></div>
@@ -278,7 +278,7 @@
         <div class="tier bottom"></div>
         <div class="plate"></div>
       </div>
-      <p class="hand" id="cake-hint">Make a wish, then tap the cake to blow out the candles</p>
+      <p class="hand" id="cake-hint">Make an early wish, then tap the cake to blow out the candles</p>
     </div>
   </section>
 
@@ -301,7 +301,7 @@
   <!-- Scene 4: the big reveal -->
   <section class="scene" id="s4">
     <div class="letter">
-      <div class="hand">Happy Birthday, Bestie!</div>
+      <div class="hand">Happy (early) Birthday, Bestie!</div>
       <div class="small">Pack your best outfit, because…</div>
       <div class="big">WE'RE GOING TO <em>OLIVIA DEAN!</em></div>
       <div class="ticket">
@@ -312,7 +312,7 @@
         </div>
         <div class="stub">ADMIT<br>TWO</div>
       </div>
-      <p>Get ready to sing every single word, cry a little and dance a lot. I love you so much. Here's to the best year yet.</p>
+      <p>I couldn't keep this a secret until March. Get ready to sing every single word, cry a little and dance a lot. I love you so much. Here's to the best year yet.</p>
       <div class="sign">Love, your bestie 💛</div>
       <button class="replay" id="replay">Watch that again</button>
     </div>
@@ -349,8 +349,8 @@
       document.getElementById('birthday-reveal').classList.add('show');
       burst(80);
     }
-    document.getElementById('yes').addEventListener('click', () => revealBirthday("Yes! It's your BIRTHDAY! 🎂"));
-    document.getElementById('no').addEventListener('click', () => revealBirthday("No silly, it's your BIRTHDAY! 🎂"));
+    document.getElementById('yes').addEventListener('click', () => revealBirthday("Not yet, but I couldn't wait! It's an EARLY birthday gift 🎁"));
+    document.getElementById('no').addEventListener('click', () => revealBirthday("Not until March, silly! But I couldn't wait. It's an EARLY birthday gift 🎁"));
 
     const cake = document.getElementById('cake');
     cake.addEventListener('click', () => {
@@ -380,7 +380,7 @@
       document.getElementById('question').style.display = '';
       document.getElementById('birthday-reveal').classList.remove('show');
       cake.classList.remove('out');
-      document.getElementById('cake-hint').textContent = 'Make a wish, then tap the cake to blow out the candles';
+      document.getElementById('cake-hint').textContent = 'Make an early wish, then tap the cake to blow out the candles';
       envelope.classList.remove('open');
       envelope.classList.add('wiggle');
       document.getElementById('env-hint').style.visibility = '';
