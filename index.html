@@ -10,23 +10,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream: #f7ecdc;
-      --paper: #fffaf1;
-      --terracotta: #c8553d;
-      --rose: #e9a196;
-      --blush: #f4c9bd;
-      --mustard: #e3a73b;
-      --olive: #7a8450;
-      --brown: #3d2618;
-      --muted: #8a6a58;
+      --cream: #f5e9d6;
+      --paper: #fffaf0;
+      --terracotta: #b8312f;
+      --rose: #e39a94;
+      --blush: #f6d3cb;
+      --mustard: #f0c04a;
+      --olive: #6f8fb5;
+      --brown: #3a2218;
+      --muted: #7d5a48;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
       background:
-        radial-gradient(circle at 20% 10%, #fbe3c9 0, transparent 45%),
-        radial-gradient(circle at 85% 90%, #f6d2c6 0, transparent 45%),
+        radial-gradient(circle at 20% 10%, #fbe1b8 0, transparent 45%),
+        radial-gradient(circle at 85% 90%, #f3c4bd 0, transparent 45%),
         var(--cream);
       color: var(--brown);
       font-family: "DM Sans", system-ui, sans-serif;
@@ -83,12 +83,12 @@
       cursor: pointer;
       background: var(--terracotta);
       color: var(--paper);
-      box-shadow: 0 6px 0 #9c3d2a;
+      box-shadow: 0 6px 0 #7f1f1e;
       transition: transform .1s, box-shadow .1s;
     }
-    button:active { transform: translateY(4px); box-shadow: 0 2px 0 #9c3d2a; }
-    button.alt { background: var(--mustard); box-shadow: 0 6px 0 #b07f22; color: var(--brown); }
-    button.alt:active { box-shadow: 0 2px 0 #b07f22; }
+    button:active { transform: translateY(4px); box-shadow: 0 2px 0 #7f1f1e; }
+    button.alt { background: var(--mustard); box-shadow: 0 6px 0 #b8891c; color: var(--brown); }
+    button.alt:active { box-shadow: 0 2px 0 #b8891c; }
     .btn-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 
     /* Scene 0: fake access check */
@@ -111,6 +111,35 @@
       10%, 30% { transform: rotate(16deg); }
       20%, 40% { transform: rotate(-8deg); }
     }
+
+    .record {
+      width: 130px; height: 130px; border-radius: 50%; margin-bottom: 22px;
+      background:
+        radial-gradient(circle, var(--brown) 0 5px, var(--mustard) 6px 26px, var(--terracotta) 27px 34px, transparent 35px),
+        repeating-radial-gradient(circle, #1d1210 0 2px, #2c1d18 3px 4px);
+      box-shadow: 0 10px 24px rgba(58, 34, 24, .3);
+      animation: spin 3.5s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .now-playing {
+      position: fixed; top: 16px; left: 50%; z-index: 5;
+      transform: translate(-50%, -80px);
+      display: flex; align-items: center; gap: 10px;
+      background: var(--brown); color: var(--paper);
+      padding: 8px 16px 8px 12px; border-radius: 999px;
+      font-size: .85rem; white-space: nowrap; max-width: calc(100% - 32px);
+      box-shadow: 0 6px 18px rgba(58, 34, 24, .25);
+      transition: transform .6s ease;
+    }
+    .now-playing.show { transform: translate(-50%, 0); }
+    .now-playing .song { overflow: hidden; text-overflow: ellipsis; }
+    .now-playing b { color: var(--mustard); font-weight: 700; }
+    .eq { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .eq i { width: 3px; background: var(--mustard); border-radius: 2px; animation: eq .9s ease-in-out infinite alternate; }
+    .eq i:nth-child(2) { animation-delay: -.3s; }
+    .eq i:nth-child(3) { animation-delay: -.6s; }
+    @keyframes eq { from { height: 3px; } to { height: 14px; } }
 
     /* Scene 2: cake */
     #birthday-reveal { display: none; flex-direction: column; align-items: center; }
@@ -143,7 +172,7 @@
     /* Scene 3: envelope */
     .envelope-wrap { cursor: pointer; margin-top: 130px; }
     .envelope { position: relative; width: 300px; height: 190px; max-width: 86vw; }
-    .env-back { position: absolute; inset: 0; background: #d98c76; border-radius: 8px; }
+    .env-back { position: absolute; inset: 0; background: #8f2626; border-radius: 8px; }
     .env-letter {
       position: absolute; left: 16px; right: 16px; bottom: 12px; height: 160px;
       background: var(--paper); border-radius: 6px; z-index: 1;
@@ -153,19 +182,19 @@
     }
     .env-front {
       position: absolute; inset: 0; z-index: 2; border-radius: 8px;
-      background: var(--rose);
+      background: var(--terracotta);
       clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
     }
     .env-flap {
       position: absolute; top: 0; left: 0; right: 0; height: 110px; z-index: 3;
-      background: #e6a08b;
+      background: #cf4a43;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       transform-origin: top;
       transition: transform .6s ease, z-index 0s .3s;
     }
     .seal {
       position: absolute; top: 88px; left: 50%; z-index: 4; width: 44px; height: 44px; margin-left: -22px;
-      border-radius: 50%; background: var(--terracotta); color: var(--paper);
+      border-radius: 50%; background: var(--mustard); color: var(--terracotta);
       display: grid; place-items: center; font-size: 1.2rem;
       box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
       transition: opacity .3s, transform .3s;
@@ -183,7 +212,7 @@
     }
 
     /* Scene 4: the letter */
-    #s4 { overflow-y: auto; justify-content: flex-start; }
+    #s4 { overflow-y: auto; justify-content: flex-start; padding-top: 76px; }
     .letter {
       background: var(--paper);
       width: min(480px, 100%);
@@ -192,7 +221,7 @@
       border-radius: 14px;
       box-shadow: 0 18px 50px rgba(61, 38, 24, .18);
       position: relative;
-      background-image: repeating-linear-gradient(transparent 0 33px, rgba(200, 85, 61, .08) 33px 34px);
+      background-image: repeating-linear-gradient(transparent 0 33px, rgba(184, 49, 47, .08) 33px 34px);
     }
     .letter .hand { font-size: 1.9rem; margin-bottom: 6px; }
     .letter .small { font-size: 1rem; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin: 14px 0 4px; }
@@ -232,11 +261,16 @@
 <body>
   <div class="bg-flowers" aria-hidden="true">
     <span style="top:8%;left:6%">🌼</span>
-    <span style="top:14%;right:8%;animation-delay:-3s">🌸</span>
+    <span style="top:14%;right:8%;animation-delay:-3s">🌹</span>
     <span style="bottom:12%;left:10%;animation-delay:-5s">🌷</span>
     <span style="bottom:8%;right:12%;animation-delay:-1s">🌼</span>
-    <span style="top:48%;left:3%;animation-delay:-7s">🌸</span>
-    <span style="top:52%;right:4%;animation-delay:-2s">🌷</span>
+    <span style="top:48%;left:3%;animation-delay:-7s">🎶</span>
+    <span style="top:52%;right:4%;animation-delay:-2s">🎵</span>
+  </div>
+
+  <div class="now-playing" id="now-playing" aria-live="polite">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="song">Now playing: <b id="song">Nice To Each Other</b> · Olivia Dean</span>
   </div>
 
   <!-- Scene 0: the "access check" decoy -->
@@ -250,9 +284,9 @@
 
   <!-- Scene 1: Hey Bestie -->
   <section class="scene" id="s1">
-    <div class="wave">👋</div>
+    <div class="record" aria-hidden="true"></div>
     <h1>Hey Bestie</h1>
-    <p>You got in! Good. Because I've got something for you…</p>
+    <p>You got in! Good. Put your favourite Olivia Dean record on, because I've got something for you…</p>
     <button data-next="s2">Ooh, what is it?</button>
   </section>
 
@@ -285,11 +319,11 @@
   <!-- Scene 3: envelope -->
   <section class="scene" id="s3">
     <h2>You've got mail 💌</h2>
-    <p>Wishes do come true, apparently.</p>
+    <p>It might be a little bit messy, but it's straight from the heart.</p>
     <div class="envelope-wrap" id="envelope-wrap" role="button" aria-label="Open the letter">
       <div class="envelope wiggle" id="envelope">
         <div class="env-back"></div>
-        <div class="env-letter">for you 💛</div>
+        <div class="env-letter">for you ❤️</div>
         <div class="env-front"></div>
         <div class="env-flap"></div>
         <div class="seal">♥</div>
@@ -302,18 +336,18 @@
   <section class="scene" id="s4">
     <div class="letter">
       <div class="hand">Happy (early) Birthday, Bestie!</div>
-      <div class="small">Pack your best outfit, because…</div>
+      <div class="small">Clear your diary and pick an outfit, because…</div>
       <div class="big">WE'RE GOING TO <em>OLIVIA DEAN!</em></div>
       <div class="ticket">
         <div class="main">
-          <span>Live in concert</span>
+          <span>The Art of Loving Live</span>
           <b>Olivia Dean</b>
-          <span>You + me 💛</span>
+          <span>You + me ❤️</span>
         </div>
         <div class="stub">ADMIT<br>TWO</div>
       </div>
-      <p>I couldn't keep this a secret until March. Get ready to sing every single word, cry a little and dance a lot. I love you so much. Here's to the best year yet.</p>
-      <div class="sign">Love, your bestie 💛</div>
+      <p>I couldn't keep this a secret until March. Get ready to scream every word of 'Dive' and 'Man I Need' with me, cry during 'Carmen' and dance a lot. I love you so much. Here's to the best year yet.</p>
+      <div class="sign">Love, your bestie ❤️</div>
       <button class="replay" id="replay">Watch that again</button>
     </div>
   </section>
@@ -321,8 +355,17 @@
   <canvas id="confetti"></canvas>
 
   <script>
+    const songs = {
+      s1: 'Nice To Each Other',
+      s2: 'Getting There (Interlude)',
+      s3: 'Close Up',
+      s4: 'Dive'
+    };
     const show = (id) => {
       document.querySelectorAll('.scene').forEach(s => s.classList.toggle('active', s.id === id));
+      // Hide the pill on the decoy screen so nothing gives the game away
+      document.getElementById('now-playing').classList.toggle('show', id in songs);
+      if (songs[id]) document.getElementById('song').textContent = songs[id];
     };
 
     // Scene 0: fake access check, then move on by itself
@@ -348,6 +391,7 @@
       document.getElementById('bday-title').textContent = title;
       document.getElementById('birthday-reveal').classList.add('show');
       burst(80);
+      document.getElementById('song').textContent = 'So Easy (To Fall In Love)';
     }
     document.getElementById('yes').addEventListener('click', () => revealBirthday("Not yet, but I couldn't wait! It's an EARLY birthday gift 🎁"));
     document.getElementById('no').addEventListener('click', () => revealBirthday("Not until March, silly! But I couldn't wait. It's an EARLY birthday gift 🎁"));
@@ -391,7 +435,7 @@
     // Confetti
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
-    const colors = ['#c8553d', '#e3a73b', '#e9a196', '#7a8450', '#f4c9bd', '#fffaf1'];
+    const colors = ['#b8312f', '#f0c04a', '#e39a94', '#6f8fb5', '#3a2218', '#fffaf0'];
     let pieces = [];
     let running = false;
 
@@ -438,7 +482,7 @@
         ctx.fillStyle = p.color;
         if (p.heart) {
           ctx.font = `${p.size * 1.3}px serif`;
-          ctx.fillText('💛', 0, 0);
+          ctx.fillText('❤️', 0, 0);
         } else {
           ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
         }
